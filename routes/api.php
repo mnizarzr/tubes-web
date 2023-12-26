@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\EventController;
+use App\Http\Controllers\Api\V1\TicketController;
+use App\Http\Controllers\Api\V1\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/me', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/signout', [AuthController::class, 'signout']);
+
+    Route::apiResource('events', EventController::class);
+    Route::apiResource('transactions', TransactionController::class);
+    Route::apiResource('tickets', TicketController::class);
 });
+
+Route::post('/signup', [AuthController::class, 'signup']);
+Route::post('/login', [AuthController::class, 'signin']);
