@@ -2,8 +2,9 @@
 
 namespace App\Mail;
 
+use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,9 +17,10 @@ class TicketMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        public Event $event,
+        public Ticket $ticket
+    ) {
     }
 
     /**
@@ -27,7 +29,7 @@ class TicketMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Ticket Mail',
+            subject: 'Your "'.$this->event->name.'" Ticket',
         );
     }
 
@@ -37,7 +39,7 @@ class TicketMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.ticket',
         );
     }
 

@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateTransactionRequest;
-use App\Mail\TicketMail;
 use App\Models\Transaction;
 use BadMethodCallException;
-use Midtrans\Notification;
-use App\Models\Ticket;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
@@ -55,5 +50,4 @@ class TransactionController extends Controller
     {
         return response()->json($transaction->delete());
     }
-
 }

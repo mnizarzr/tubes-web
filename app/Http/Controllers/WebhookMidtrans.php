@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Midtrans\Notification;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketMail;
-use App\Models\Transaction;
+use App\Models\Event;
 use App\Models\Ticket;
+use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use Midtrans\Notification;
 
 class WebhookMidtrans extends Controller
 {
@@ -30,9 +31,10 @@ class WebhookMidtrans extends Controller
             $ticket->code = Ticket::generateSerialNumber();
             $ticket->save();
 
+            $event = Event::find($ticket->event_id);
             $user = User::find($ticket->user_id);
 
-            Mail::to($user)->send(new TicketMail($ticket));
+            Mail::to($user)->send(new TicketMail($event, $ticket));
         }
 
         return response(status: 200);

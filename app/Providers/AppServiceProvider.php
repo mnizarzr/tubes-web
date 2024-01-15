@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         MidtransConfig::$serverKey = config('services.midtrans.key');
         MidtransConfig::$isProduction = false;
-        MidtransConfig::$overrideNotifUrl = config("app.url") . '/webhook/midtrans';
+        MidtransConfig::$overrideNotifUrl = config('app.url').'/webhook/midtrans';
     }
 }
