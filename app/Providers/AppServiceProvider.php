@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         MidtransConfig::$serverKey = config('services.midtrans.key');
         MidtransConfig::$isProduction = false;
-        MidtransConfig::$overrideNotifUrl = 'https://5e80-180-248-31-106.ngrok-free.app/webhook/midtrans';
+        MidtransConfig::$overrideNotifUrl = config("app.url") . '/webhook/midtrans';
     }
 }

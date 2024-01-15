@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateTransactionRequest;
+use App\Mail\TicketMail;
 use App\Models\Transaction;
 use BadMethodCallException;
 use Midtrans\Notification;
+use App\Models\Ticket;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
@@ -52,19 +56,4 @@ class TransactionController extends Controller
         return response()->json($transaction->delete());
     }
 
-    /**
-     * Midtrans payment notification handler
-     */
-    public function webhook()
-    {
-        $notification = new Notification;
-        $res = $notification->getResponse();
-
-        $transaction = Transaction::firstOrFail($res['order_id']);
-        $transaction->status = $res['transaction_status'];
-        $transaction->expire_at = $res['expiry_time'];
-        $transaction->save();
-
-        return response(status: 200);
-    }
 }

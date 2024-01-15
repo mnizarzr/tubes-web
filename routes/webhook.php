@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\TransactionController;
+use App\Http\Controllers\WebhookMidtrans;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,4 +11,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/webhook/midtrans', [TransactionController::class, 'webhook']);
+Route::post('/webhook/midtrans', WebhookMidtrans::class);
