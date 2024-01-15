@@ -26,6 +26,8 @@ class StoreEventRequest extends FormRequest
             'description' => 'string',
             'capacity' => 'numeric|gt:0',
             'location' => 'required|string',
+            'location_coords_lat' => ['nullable', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/', 'present_with:location_coords_long'],
+            'location_coords_long' => ['nullable', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/', 'present_with:location_coords_lat'],
             'held_date' => 'date',
         ];
     }

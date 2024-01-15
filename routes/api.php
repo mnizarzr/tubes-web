@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/events', [EventController::class, 'index']);
+Route::get('/events/{event}', [EventController::class, 'show']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', function (Request $request) {
         return $request->user();
@@ -25,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/signout', [AuthController::class, 'signout']);
 
-    Route::apiResource('events', EventController::class);
+    Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('tickets', TicketController::class);
 });

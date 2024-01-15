@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Midtrans\Config as MidtransConfig;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        MidtransConfig::$serverKey = config('services.midtrans.key');
+        MidtransConfig::$isProduction = false;
+        MidtransConfig::$overrideNotifUrl = 'https://5e80-180-248-31-106.ngrok-free.app/webhook/midtrans';
     }
 }

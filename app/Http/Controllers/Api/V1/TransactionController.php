@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Transaction;
+use BadMethodCallException;
+use Midtrans\Notification;
 
 class TransactionController extends Controller
 {
@@ -20,9 +21,9 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransactionRequest $request)
+    public function store()
     {
-        //
+        throw new BadMethodCallException('Function not implemented');
     }
 
     /**
@@ -49,5 +50,21 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         return response()->json($transaction->delete());
+    }
+
+    /**
+     * Midtrans payment notification handler
+     */
+    public function webhook()
+    {
+        $notification = new Notification;
+        $res = $notification->getResponse();
+
+        $transaction = Transaction::firstOrFail($res['order_id']);
+        $transaction->status = $res['transaction_status'];
+        $transaction->expire_at = $res['expiry_time'];
+        $transaction->save();
+
+        return response(status: 200);
     }
 }

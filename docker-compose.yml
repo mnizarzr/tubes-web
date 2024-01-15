@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+    php:
+        build:
+            context: .
+        restart: always
+        ports:
+            - "80:80/tcp" # HTTP
+            - "443:443/tcp" # HTTPS
+            - "443:443/udp" # # HTTP/3
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+
+# Volumes needed for Caddy certificates and configuration
+volumes:
+    caddy_data:
+    caddy_config:

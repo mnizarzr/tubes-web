@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
 
             $table->unsignedDecimal('amount');
             $table->string('status')->default('pending');
@@ -36,9 +36,10 @@ return new class extends Migration
 
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->nullable();
 
-            $table->foreignId('transaction_id')->nullable()
+            $table->string('transaction_id')->nullable();
+            $table->foreign('transaction_id')
                 ->references('id')->on('transactions')
                 ->onDelete('set null')->onUpdate('cascade');
 

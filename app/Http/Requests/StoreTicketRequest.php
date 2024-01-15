@@ -23,12 +23,13 @@ class StoreTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'event_id' => 'exists:events,id',
             'holder_name' => 'required|string',
             'holder_gender' => ['required', Rule::in(['male', 'female'])],
             'holder_email' => 'required|email',
             'holder_phone' => 'digits_between:12,18',
             'purchase_amount' => 'required|numeric',
-            'notes' => 'string',
+            'notes' => 'nullable|string',
         ];
     }
 }
