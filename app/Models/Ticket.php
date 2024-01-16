@@ -11,10 +11,17 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    public static function generateSerialNumber(): string
+    public static function generateSerialNumber($eventId): string
     {
-        $count = DB::table('tickets')->count();
-        $serial = 'PJRTTX-'.str_pad(strval($count + 1), 7, '0', STR_PAD_LEFT);
+        $q = DB::table('tickets');
+
+        if (isset($eventId)) {
+            $q->where('event_id', $eventId);
+        }
+
+        $count = $q->count();
+
+        $serial = 'PJRTTX-' . generateRandomString(5) . str_pad(strval($count + 1), 4, '0', STR_PAD_LEFT);
 
         return $serial;
     }

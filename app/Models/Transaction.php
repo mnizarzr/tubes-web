@@ -13,7 +13,7 @@ class Transaction extends Model
     public static function generateSerialNumber(): string
     {
         $count = DB::table('transactions')->count();
-        $serial = 'TRX-'.str_pad(strval($count + 1), 7, '0', STR_PAD_LEFT);
+        $serial = 'TRX-' . generateRandomString(5) . str_pad(strval($count + 1), 5, '0', STR_PAD_LEFT);
 
         return $serial;
     }
