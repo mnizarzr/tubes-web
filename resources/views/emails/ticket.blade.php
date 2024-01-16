@@ -16,8 +16,7 @@
     <meta name="format-detection" content="date=no"> <!-- disable auto date linking in iOS -->
     <meta name="format-detection" content="address=no"> <!-- disable auto address linking in iOS -->
     <meta name="format-detection" content="email=no"> <!-- disable auto email linking in iOS -->
-    <meta name="author" content="Simple-Pleb.com">
-    <title>{{ __('pleb.mail.Payment Thank You Title') }} | {{ config('app.name') }}</title>
+    <title>Your Ticket</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -157,7 +156,7 @@
                                 <td class="center-text"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:42px;line-height:52px;font-weight:400;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
 
                                     <div  >
-                                        {{ __('pleb.mail.Thanks for your payment') }}
+                                        {{ 'Hi ' $recipientName ' thanks for your payment' }}
                                     </div>
 
                                 </td>
@@ -169,22 +168,13 @@
                                 <td class="center-text"  align="center" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:26px;line-height:36px;font-weight:400;font-style:normal;color:#d7e057;text-decoration:none;letter-spacing:0px;">
 
                                     <div  >
-                                        {{ __('pleb.mail.Attached your receipt') }}.
+                                        {{ 'Below is your ticket' }}.
                                     </div>
 
                                 </td>
                             </tr>
                             <tr  >
                                 <td height="20" style="font-size:20px;line-height:20px;" >&nbsp;</td>
-                            </tr>
-                            <tr  >
-                                <td class="center-text"  align="center" style="font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:300;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;">
-
-                                    <div  >
-                                        {{ __('pleb.mail.Thank you paragraph') }}
-                                    </div>
-
-                                </td>
                             </tr>
                             <tr>
                                 <td height="40" style="font-size:40px;line-height:40px;" >&nbsp;</td>
@@ -231,7 +221,7 @@
                                                         <td class="center-text"  align="left" style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:20px;line-height:26px;font-weight:400;font-style:normal;color:#343e9e;text-decoration:none;letter-spacing:0px;">
 
                                                             <div  >
-                                                                {{ __('pleb.mail.Invoice ID') }}:
+                                                                {{ $ticket->code }}:
                                                             </div>
 
                                                         </td>
@@ -243,9 +233,10 @@
                                                         <td class="center-text"  align="left" style="font-family:'Poppins',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;font-weight:400;font-style:normal;color:#282828;text-decoration:none;letter-spacing:0px;">
 
                                                             <div  >
-                                                                {{ $ticket->id }}
+                                                                {{ $ticket->code }}
                                                             </div>
 
+                                                            <span>Please keep the code above secure!</span>
                                                         </td>
                                                     </tr>
                                                 </table>

@@ -32,9 +32,9 @@ class WebhookMidtrans extends Controller
             $ticket->save();
 
             $event = Event::find($ticket->event_id);
-            $user = User::find($ticket->user_id);
+            // $user = User::find($ticket->user_id);
 
-            Mail::to($user)->send(new TicketMail($event, $ticket));
+            Mail::to($ticket->holder_email)->send(new TicketMail($ticket->holder_name, $event, $ticket));
         }
 
         return response(status: 200);
