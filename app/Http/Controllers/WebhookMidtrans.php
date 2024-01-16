@@ -28,7 +28,7 @@ class WebhookMidtrans extends Controller
 
         if ($status == 'settlement') {
             $ticket = Ticket::where('transaction_id', $transaction->id)->first();
-            $ticket->code = Ticket::generateSerialNumber();
+            $ticket->code = Ticket::generateSerialNumber($ticket->event_id);
             $ticket->save();
 
             $event = Event::find($ticket->event_id);
