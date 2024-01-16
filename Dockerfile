@@ -1,21 +1,18 @@
-# ┏━━━━━━━━━━━━━━━━┓
-# ┃ Belum Berhasil ┃
-# ┗━━━━━━━━━━━━━━━━┛
-
-FROM dunglas/frankenphp
-
-# Be sure to replace "your-domain-name.example.com" by your domain name
-# ENV SERVER_NAME=localhost
-
-RUN install-php-extensions pcntl
-
-COPY . /app
+FROM webdevops/php-nginx:8.2-alpine
 
 
-# If you want to disable HTTPS, use this value instead:
-# ENV SERVER_NAME=localhost:80
+ENV WEB_DOCUMENT_ROOT=/app/public
+ENV PHP_DISMOD=bz2,calendar,exiif,ffi,intl,gettext,ldap,mysqli,imap,pdo_pgsql,pgsql,soap,sockets,sysvmsg,sysvsm,sysvshm,shmop,xsl,zip,gd,apcu,vips,yaml,imagick,mongodb
+ENV APP_ENV=production \
+    APP_DEBUG=false
 
-# Enable PHP production settings
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+WORKDIR /app
 
-# ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+COPY . .
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+EXPOSE 80
+EXPOSE 443
+
+# Ensure all of our files are owned by the same user and group.
+RUN chown -R application:application .
