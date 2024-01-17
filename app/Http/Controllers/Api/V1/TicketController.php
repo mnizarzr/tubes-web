@@ -10,6 +10,7 @@ use App\Models\Ticket;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Midtrans\Snap;
 
 class TicketController extends Controller
@@ -19,7 +20,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return response()->json(Ticket::all());
+        return response()->json(Ticket::where('user_id', Auth::user()->id)->whereNotNull('code')->get());
     }
 
     /**
@@ -54,7 +55,7 @@ class TicketController extends Controller
             'id' => $newTicket->id,
             'price' => $newTicket->purchase_amount,
             'quantity' => 1,
-            'name' => $event->name.' ticket',
+            'name' => $event->name . ' ticket',
         ];
 
         $customer_details = [
@@ -96,6 +97,21 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
+        return response()->json($ticket);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showByTransactionId(Transaction $transaction)
+    {
+        $user = Auth::user();
+        $ticket = Ticket::where('transaction_id', $transaction->id)->first();
+
+        if ($ticket->user_id != $user->id) {
+            abort(403, 'Forbidden');
+        }
+
         return response()->json($ticket);
     }
 

@@ -27,10 +27,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::post('/signout', [AuthController::class, 'signout']);
+    Route::get('/tickets/transactions/{transaction}', [TicketController::class, 'showByTransactionId']);
 
     Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('tickets', TicketController::class);
+
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);
