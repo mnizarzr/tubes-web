@@ -19,10 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('/test_mail', function () {
-    $event = App\Models\Event::find(1);
-    $ticket = App\Models\Ticket::find(16);
+    $ticket = App\Models\Ticket::inRandomOrder()->first();
+    $event = App\Models\Event::find($ticket->event_id);
 
-    $mail = new App\Mail\TicketMail($event, $ticket);
+    $mail = new App\Mail\TicketMail('PijarAPI', $event, $ticket);
     Mail::to('khususdroid4x@gmail.com')->send($mail);
 
     return $mail;

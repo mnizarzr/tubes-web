@@ -18,7 +18,7 @@ class TicketMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public String $recipientName,
+        public string $recipientName,
         public Event $event,
         public Ticket $ticket
     ) {

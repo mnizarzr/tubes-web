@@ -10,7 +10,6 @@ use App\Models\Ticket;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Midtrans\Snap;
 
 class TicketController extends Controller
@@ -55,7 +54,7 @@ class TicketController extends Controller
             'id' => $newTicket->id,
             'price' => $newTicket->purchase_amount,
             'quantity' => 1,
-            'name' => $event->name . ' ticket',
+            'name' => $event->name.' ticket',
         ];
 
         $customer_details = [

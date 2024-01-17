@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('generateRandomString')) {
+if (! function_exists('generateRandomString')) {
     function generateRandomString($length = 5)
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

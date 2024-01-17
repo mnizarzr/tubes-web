@@ -21,7 +21,7 @@ class Ticket extends Model
 
         $count = $q->count();
 
-        $serial = 'PJRTTX-' . generateRandomString(5) . str_pad(strval($count + 1), 4, '0', STR_PAD_LEFT);
+        $serial = 'PJRTTX-'.generateRandomString(5).str_pad(strval($count + 1), 4, '0', STR_PAD_LEFT);
 
         return $serial;
     }
