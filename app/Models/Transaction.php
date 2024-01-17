@@ -10,6 +10,10 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     public static function generateSerialNumber(): string
     {
         $count = DB::table('transactions')->count();
